@@ -82,7 +82,7 @@ const codemod: Codemod<JSOrTS> = async (root) => {
 
   // R03b: AccessControl Non-Canonical
   source = source.replace(
-    /^(\s*)(.*?revertedWith\s*\(\s*["'`].*?AccessControl: account.*?["'`]\s*\).*)$/gm,
+    /^([ \t]*)(.*?revertedWith\s*\(\s*["'`].*?AccessControl: account.*?["'`]\s*\).*)$/gm,
     (match, indent, stmt) => {
       if (match.includes("TODO(oz-v5)")) return match;
       return `${indent}// TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);\n${indent}${stmt}`;
@@ -104,7 +104,7 @@ const codemod: Codemod<JSOrTS> = async (root) => {
 
   // R07: zero-arg deploy
   source = source.replace(
-    /^(\s*)(.*?\.deploy\(\)\s*;)/gm,
+    /^([ \t]*)(.*?\.deploy\(\)\s*;)/gm,
     (match, indent, stmt) => {
       return `${indent}// TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.\n${indent}${stmt}`;
     }
@@ -112,15 +112,15 @@ const codemod: Codemod<JSOrTS> = async (root) => {
 
   // R08: role hash warn
   source = source.replace(
-    /^(\s*)(keccak256\s*\(\s*["'`].*?_ROLE["'`]\s*\)\s*;)/gm,
+    /^([ \t]*)(keccak256\s*\(\s*["'`].*?_ROLE["'`]\s*\)\s*;)/gm,
     (match, indent, stmt) => `${indent}// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role\n${indent}// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with\n${indent}// ethers.utils.id("MINTER_ROLE") for self-documentation.\n${indent}${stmt}`
   );
   source = source.replace(
-    /^(\s*)(ethers\.utils\.id\s*\(\s*["'`].*?_ROLE["'`]\s*\)\s*;)/gm,
+    /^([ \t]*)(ethers\.utils\.id\s*\(\s*["'`].*?_ROLE["'`]\s*\)\s*;)/gm,
     (match, indent, stmt) => `${indent}// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role\n${indent}// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with\n${indent}// ethers.utils.id("MINTER_ROLE") for self-documentation.\n${indent}${stmt}`
   );
   source = source.replace(
-    /^(\s*)(const\s+[A-Z0-9_]+_ROLE\s*=\s*["'`]0x[0-9a-fA-F]{64}["'`]\s*;)/gm,
+    /^([ \t]*)(const\s+[A-Z0-9_]+_ROLE\s*=\s*["'`]0x[0-9a-fA-F]{64}["'`]\s*;)/gm,
     (match, indent, stmt) => `${indent}// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role\n${indent}// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with\n${indent}// ethers.utils.id("MINTER_ROLE") for self-documentation.\n${indent}${stmt}`
   );
 
@@ -135,35 +135,35 @@ const codemod: Codemod<JSOrTS> = async (root) => {
 
   // R10: removed symbols
   source = source.replace(
-    /^(\s*)(.*Address\.isContract.*)$/gm,
+    /^([ \t]*)(.*Address\.isContract.*)$/gm,
     (match, indent, stmt) => {
       if (match.includes("TODO(oz-v5)")) return match;
       return `${indent}// TODO(oz-v5): Address.isContract removed in v5 (ambiguous semantics).\n${indent}// Replace with explicit code-size check or remove the guard.\n${indent}${stmt}`;
     }
   );
   source = source.replace(
-    /^(\s*)(.*_setupRole.*)$/gm,
+    /^([ \t]*)(.*_setupRole.*)$/gm,
     (match, indent, stmt) => {
       if (match.includes("TODO(oz-v5)")) return match;
       return `${indent}// TODO(oz-v5): _setupRole was removed; use _grantRole on the v5 contract instead.\n${indent}${stmt}`;
     }
   );
   source = source.replace(
-    /^(\s*)(.*safePermit.*)$/gm,
+    /^([ \t]*)(.*safePermit.*)$/gm,
     (match, indent, stmt) => {
       if (match.includes("TODO(oz-v5)")) return match;
       return `${indent}// TODO(oz-v5): safePermit was removed in v5.\n${indent}${stmt}`;
     }
   );
   source = source.replace(
-    /^(\s*)(.*increaseAllowance.*)$/gm,
+    /^([ \t]*)(.*increaseAllowance.*)$/gm,
     (match, indent, stmt) => {
       if (match.includes("TODO(oz-v5)")) return match;
       return `${indent}// TODO(oz-v5): increaseAllowance was removed in v5; rewrite the test to use approve() with the new value.\n${indent}${stmt}`;
     }
   );
   source = source.replace(
-    /^(\s*)(.*decreaseAllowance.*)$/gm,
+    /^([ \t]*)(.*decreaseAllowance.*)$/gm,
     (match, indent, stmt) => {
       if (match.includes("TODO(oz-v5)")) return match;
       return `${indent}// TODO(oz-v5): decreaseAllowance was removed in v5; rewrite the test to use approve() with the new value.\n${indent}${stmt}`;
