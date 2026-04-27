@@ -1,8 +1,8 @@
 schema_version: "1.0"
 
-name: "Learning"
+name: "openzeppelin-v4-to-v5-js"
 version: "0.1.0"
-description: "Learning"
+description: "jssg codemod that migrates Hardhat JS/TS test and script files from OpenZeppelin Contracts v4 to v5"
 author: "0xjaadu"
 license: "MIT"
 workflow: "workflow.yaml"

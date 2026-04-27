@@ -11,14 +11,3 @@ nodes:
         js-ast-grep:
           js_file: scripts/codemod.ts
           language: "typescript"
-
-
-  - id: install-package-skill
-    name: Install Package Skill
-    type: automatic
-    steps:
-      - id: install-package-skill
-        name: Install package skill
-        install-skill:
-          package: "Learning"
-          path: "./agents/skill/Learning/SKILL.md"
