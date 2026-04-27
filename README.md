@@ -131,5 +131,8 @@ This codemod was aggressively validated against the reference `OriginProtocol/or
 - **Quote Normalization:** R11 path rewrites standardizes internal module paths to double quotes `"`. 
 - **Solidity Scope:** Again, `.sol` files are out-of-scope for this project.
 
+## Repository
+Source code is available at: [https://github.com/bitnormie01/openzeppelin-v4-to-v5-js](https://github.com/bitnormie01/openzeppelin-v4-to-v5-js)
+
 ## License
 MIT
