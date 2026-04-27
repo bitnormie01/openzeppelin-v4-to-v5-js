@@ -1,0 +1,20 @@
+schema_version: "1.0"
+
+name: "Learning"
+version: "0.1.0"
+description: "Learning"
+author: "0xjaadu"
+license: "MIT"
+workflow: "workflow.yaml"
+
+
+targets:
+  languages: ["typescript"]
+
+keywords: ["transformation", "migration"]
+
+registry:
+  access: "private"
+  visibility: "private"
+
+capabilities: []
