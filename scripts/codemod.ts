@@ -3,32 +3,46 @@ import type JS from "codemod:ast-grep/langs/javascript";
 import type TS from "codemod:ast-grep/langs/typescript";
 import type TSX from "codemod:ast-grep/langs/tsx";
 
-// You can change the language to JS, TS, or TSX depending on your needs. Here we use a union type to support all three.
-// Please note that TSX is different from TS in that it supports JSX syntax and treats type generics differently, so make sure to choose the one that best fits your codebase.
-// - If you are targeting JSX files, use TSX.
-// - If you are targeting plain TypeScript files without JSX, use TS.
-// - If you do not care about TypeScript features and want to target plain JavaScript files, use JS.
-//
-// Make sure this is in sync with workflow.yaml where you specify the language for the codemod.
 type JSOrTS = JS | TS | TSX;
 
 const codemod: Codemod<JSOrTS> = async (root) => {
-  const rootNode = root.root();
+  let source = root.root().text();
 
-  const nodes = rootNode.findAll({
-    rule: {
-      pattern: "var $VAR = $VALUE",
-    },
-  });
+  // R11: import-path-shifts
+  source = source.replace(
+    /["']@openzeppelin\/contracts\/token\/ERC20\/extensions\/draft-ERC20Permit\.sol(:ERC20Permit)?["']/g,
+    '"@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol$1"'
+  );
+  source = source.replace(
+    /["']@openzeppelin\/contracts\/token\/ERC20\/extensions\/draft-IERC20Permit\.sol(:IERC20Permit)?["']/g,
+    '"@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol$1"'
+  );
+  source = source.replace(
+    /["']@openzeppelin\/contracts\/utils\/cryptography\/draft-EIP712\.sol(:EIP712)?["']/g,
+    '"@openzeppelin/contracts/utils/cryptography/EIP712.sol$1"'
+  );
+  source = source.replace(
+    /["']@openzeppelin\/contracts\/security\/Pausable\.sol(:Pausable)?["']/g,
+    '"@openzeppelin/contracts/utils/Pausable.sol$1"'
+  );
+  source = source.replace(
+    /["']@openzeppelin\/contracts\/security\/ReentrancyGuard\.sol(:ReentrancyGuard)?["']/g,
+    '"@openzeppelin/contracts/utils/ReentrancyGuard.sol$1"'
+  );
+  source = source.replace(
+    /["']@openzeppelin\/contracts\/utils\/Checkpoints\.sol(:Checkpoints)?["']/g,
+    '"@openzeppelin/contracts/utils/structs/Checkpoints.sol$1"'
+  );
+  source = source.replace(
+    /["']@openzeppelin\/contracts-upgradeable\/utils\/AddressUpgradeable\.sol(:AddressUpgradeable)?["']/g,
+    '"@openzeppelin/contracts/utils/Address.sol$1"'
+  );
+  source = source.replace(
+    /["']@openzeppelin\/contracts-upgradeable\/interfaces\/IERC20Upgradeable\.sol(:IERC20Upgradeable)?["']/g,
+    '"@openzeppelin/contracts/interfaces/IERC20.sol$1"'
+  );
 
-  const edits = nodes.map((node) => {
-    const varName = node.getMatch("VAR")?.text();
-    const value = node.getMatch("VALUE")?.text();
-    return node.replace(`const ${varName} = ${value}`);
-  });
-
-  const newSource = rootNode.commitEdits(edits);
-  return newSource;
+  return source;
 };
 
 export default codemod;
