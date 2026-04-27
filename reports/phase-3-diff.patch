@@ -1,0 +1,307 @@
+diff --git a/contracts/test/_fixture-arb.js b/contracts/test/_fixture-arb.js
+index 12a4b16d..be37e9a5 100644
+--- a/contracts/test/_fixture-arb.js
++++ b/contracts/test/_fixture-arb.js
+@@ -7,8 +7,14 @@ const { nodeRevert, nodeSnapshot } = require("./_fixture");
+ 
+ const log = require("../utils/logger")("test:fixtures-arb");
+ 
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const MINTER_ROLE =
+   "0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6";
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const BURNER_ROLE =
+   "0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848";
+ 
+diff --git a/contracts/test/_fixture-base.js b/contracts/test/_fixture-base.js
+index c820f659..ddb3e580 100644
+--- a/contracts/test/_fixture-base.js
++++ b/contracts/test/_fixture-base.js
+@@ -18,8 +18,14 @@ const curveXChainLiquidityGaugeAbi = require("./abi/curveXChainLiquidityGauge.js
+ const curveStableSwapNGAbi = require("./abi/curveStableSwapNG.json");
+ const curveChildLiquidityGaugeFactoryAbi = require("./abi/curveChildLiquidityGaugeFactory.json");
+ 
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const MINTER_ROLE =
+   "0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6";
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const BURNER_ROLE =
+   "0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848";
+ 
+diff --git a/contracts/test/_fixture-plume.js b/contracts/test/_fixture-plume.js
+index cde954fb..ede248be 100644
+--- a/contracts/test/_fixture-plume.js
++++ b/contracts/test/_fixture-plume.js
+@@ -8,8 +8,14 @@ const addresses = require("../utils/addresses");
+ const hhHelpers = require("@nomicfoundation/hardhat-network-helpers");
+ const log = require("../utils/logger")("test:fixtures-plume");
+ 
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const MINTER_ROLE =
+   "0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6";
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const BURNER_ROLE =
+   "0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848";
+ 
+diff --git a/contracts/test/_fixture-sonic.js b/contracts/test/_fixture-sonic.js
+index f58567d3..4c818b3b 100644
+--- a/contracts/test/_fixture-sonic.js
++++ b/contracts/test/_fixture-sonic.js
+@@ -14,8 +14,14 @@ const merklDistributorAbi = require("./abi/merklDistributor.json");
+ 
+ const log = require("../utils/logger")("test:fixtures-sonic");
+ 
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const MINTER_ROLE =
+   "0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6";
++// TODO(oz-v5): verify role hash. Precomputed hex; ensure preimage matches the role
++// string used in the v5 contract (keccak256("MINTER_ROLE")). Consider replacing with
++// ethers.utils.id("MINTER_ROLE") for self-documentation.
+ const BURNER_ROLE =
+   "0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848";
+ 
+diff --git a/contracts/test/poolBooster/poolBooster.mainnet.fork-test.js b/contracts/test/poolBooster/poolBooster.mainnet.fork-test.js
+index 088e88e9..240b1f0c 100644
+--- a/contracts/test/poolBooster/poolBooster.mainnet.fork-test.js
++++ b/contracts/test/poolBooster/poolBooster.mainnet.fork-test.js
+@@ -270,7 +270,7 @@ describe("ForkTest: Merkl Pool Booster", function () {
+       const newImpl = await deployWithConfirmation("PoolBoosterMerklV2", []);
+       await expect(
+         beacon.connect(anna).upgradeTo(newImpl.address)
+-      ).to.be.revertedWith("Ownable: caller is not the owner");
++      ).to.be.revertedWithCustomError(beacon, "OwnableUnauthorizedAccount");
+     });
+   });
+ 
+diff --git a/contracts/test/safe-modules/curve-pool-booster-bribes.js b/contracts/test/safe-modules/curve-pool-booster-bribes.js
+index fcd904c0..098ab199 100644
+--- a/contracts/test/safe-modules/curve-pool-booster-bribes.js
++++ b/contracts/test/safe-modules/curve-pool-booster-bribes.js
+@@ -7,6 +7,7 @@ const { impersonateAndFund } = require("../../utils/signers");
+ const fixture = createFixtureLoader(async () => {
+   const { ethers } = hre;
+   const mockSafeFactory = await ethers.getContractFactory("MockSafeContract");
++  // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+   const mockSafe = await mockSafeFactory.deploy();
+   const safeSigner = await impersonateAndFund(mockSafe.address);
+   const stranger = await impersonateAndFund(
+@@ -16,8 +17,11 @@ const fixture = createFixtureLoader(async () => {
+   const poolBoosterFactory = await ethers.getContractFactory(
+     "MockCurvePoolBooster"
+   );
++  // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+   const poolBoosterA = await poolBoosterFactory.deploy();
++  // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+   const poolBoosterB = await poolBoosterFactory.deploy();
++  // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+   const poolBoosterC = await poolBoosterFactory.deploy();
+ 
+   const moduleFactory = await ethers.getContractFactory(
+@@ -120,6 +124,7 @@ describe("Unit Test: Curve Pool Booster Bribes Module", function () {
+     const poolBoosterFactory = await hre.ethers.getContractFactory(
+       "MockCurvePoolBooster"
+     );
++    // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+     const unknownPoolBooster = await poolBoosterFactory.deploy();
+ 
+     await expect(
+diff --git a/contracts/test/safe-modules/merkl-pool-booster-bribes.js b/contracts/test/safe-modules/merkl-pool-booster-bribes.js
+index d25de1da..308fe8c0 100644
+--- a/contracts/test/safe-modules/merkl-pool-booster-bribes.js
++++ b/contracts/test/safe-modules/merkl-pool-booster-bribes.js
+@@ -7,6 +7,7 @@ const { impersonateAndFund } = require("../../utils/signers");
+ const fixture = createFixtureLoader(async () => {
+   const { ethers } = hre;
+   const mockSafeFactory = await ethers.getContractFactory("MockSafeContract");
++  // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+   const mockSafe = await mockSafeFactory.deploy();
+   const safeSigner = await impersonateAndFund(mockSafe.address);
+   const stranger = await impersonateAndFund(
+@@ -16,6 +17,7 @@ const fixture = createFixtureLoader(async () => {
+   const poolBoosterFactoryFactory = await ethers.getContractFactory(
+     "MockPoolBoosterFactory"
+   );
++  // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+   const mockFactory = await poolBoosterFactoryFactory.deploy();
+ 
+   const moduleFactory = await ethers.getContractFactory(
+@@ -82,6 +84,7 @@ describe("Unit Test: Merkl Pool Booster Bribes Module", function () {
+   it("Should revert on construction with zero factory address", async () => {
+     const { ethers } = hre;
+     const mockSafeFactory = await ethers.getContractFactory("MockSafeContract");
++    // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+     const mockSafe = await mockSafeFactory.deploy();
+ 
+     const moduleFactory = await ethers.getContractFactory(
+diff --git a/contracts/test/safe-modules/ousd-rebalancer-module.js b/contracts/test/safe-modules/ousd-rebalancer-module.js
+index bdcf88b7..12c0a40f 100644
+--- a/contracts/test/safe-modules/ousd-rebalancer-module.js
++++ b/contracts/test/safe-modules/ousd-rebalancer-module.js
+@@ -151,6 +151,7 @@ describe("Unit Test: OUSD Rebalancer Safe Module", function () {
+       const { rebalancerModule, mockVault, mockStrategy, safeSigner } = f;
+ 
+       const MockStrategy = await ethers.getContractFactory("MockStrategy");
++      // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+       const mockStrategy2 = await MockStrategy.deploy();
+       await mockStrategy2.deployed();
+       await rebalancerModule
+@@ -259,6 +260,7 @@ describe("Unit Test: OUSD Rebalancer Safe Module", function () {
+       const { rebalancerModule, mockVault, mockStrategy, safeSigner } = f;
+ 
+       const MockStrategy = await ethers.getContractFactory("MockStrategy");
++      // TODO(oz-v5): Ownable v5 requires constructor(address initialOwner). Add the initial owner address.
+       const mockStrategy2 = await MockStrategy.deploy();
+       await mockStrategy2.deployed();
+       await rebalancerModule
+diff --git a/contracts/test/strategies/compoundingSSVStaking.js b/contracts/test/strategies/compoundingSSVStaking.js
+index 4b1ae961..7f380c73 100644
+--- a/contracts/test/strategies/compoundingSSVStaking.js
++++ b/contracts/test/strategies/compoundingSSVStaking.js
+@@ -957,7 +957,7 @@ describe("Unit test: Compounding SSV Staking Strategy", function () {
+           { value: ethUnits("2") }
+         );
+ 
+-      await expect(tx).to.be.revertedWith("Pausable: paused");
++      await expect(tx).to.be.revertedWithCustomError(tx, "EnforcedPause");
+     });
+ 
+     it("Should revert stakeEth when contract paused", async () => {
+@@ -989,7 +989,7 @@ describe("Unit test: Compounding SSV Staking Strategy", function () {
+           GweiInWei
+         );
+ 
+-      await expect(tx).to.be.revertedWith("Pausable: paused");
++      await expect(tx).to.be.revertedWithCustomError(tx, "EnforcedPause");
+     });
+ 
+     it("Should revert when registering a validator that is already registered", async () => {
+diff --git a/contracts/test/strategies/nativeSSVStaking.js b/contracts/test/strategies/nativeSSVStaking.js
+index b4493c92..9c4bc198 100644
+--- a/contracts/test/strategies/nativeSSVStaking.js
++++ b/contracts/test/strategies/nativeSSVStaking.js
+@@ -591,7 +591,7 @@ describe("Unit test: Native SSV Staking Strategy", function () {
+           parseEther("2"), //_consensusRewardsDelta
+           parseEther("2") //_ethToVault
+         )
+-      ).to.be.revertedWith("Pausable: not paused");
++      ).to.be.revertedWithCustomError(nativeStakingSSVStrategy, "ExpectedPause");
+     });
+ 
+     it("Validators delta should not be <-4 or >4 for fix accounting function", async () => {
+diff --git a/contracts/test/strategies/stakingConsolidation.mainnet.fork-test.js b/contracts/test/strategies/stakingConsolidation.mainnet.fork-test.js
+index 7c8d4c13..a5c07e6d 100644
+--- a/contracts/test/strategies/stakingConsolidation.mainnet.fork-test.js
++++ b/contracts/test/strategies/stakingConsolidation.mainnet.fork-test.js
+@@ -634,7 +634,7 @@ describe.skip("ForkTest: Consolidation of Staking Strategies", function () {
+             { value: consolidationFee }
+           );
+ 
+-        await expect(tx).to.be.revertedWith("Ownable: caller is not the owner");
++        await expect(tx).to.be.revertedWithCustomError(tx, "OwnableUnauthorizedAccount");
+       }
+     });
+     it("Fail to request consolidation on native staking strategy if not Consolidation Controller", async () => {
+@@ -1118,7 +1118,7 @@ describe.skip("ForkTest: Consolidation of Staking Strategies", function () {
+           .connect(user)
+           .failConsolidation([sourceValidators[0]]);
+ 
+-        await expect(tx).to.be.revertedWith("Ownable: caller is not the owner");
++        await expect(tx).to.be.revertedWithCustomError(tx, "OwnableUnauthorizedAccount");
+       }
+     });
+     it("Fail to call fail consolidation to invalid source public key", async () => {
+@@ -1380,7 +1380,7 @@ describe.skip("ForkTest: Consolidation of Staking Strategies", function () {
+           .connect(user)
+           .confirmConsolidation(balanceProofs, pendingDepositProofs);
+ 
+-        await expect(tx).to.be.revertedWith("Ownable: caller is not the owner");
++        await expect(tx).to.be.revertedWithCustomError(tx, "OwnableUnauthorizedAccount");
+       }
+     });
+     it("Fail confirm consolidation with invalid balance proofs", async () => {
+diff --git a/contracts/test/token/woeth.arb.fork-test.js b/contracts/test/token/woeth.arb.fork-test.js
+index d47523f1..7a32bff9 100644
+--- a/contracts/test/token/woeth.arb.fork-test.js
++++ b/contracts/test/token/woeth.arb.fork-test.js
+@@ -46,6 +46,7 @@ describe("ForkTest: WOETH", function () {
+     for (const signer of [governor, rafael, nick, burner]) {
+       await expect(
+         woeth.connect(signer).mint(signer.address, oethUnits("1"))
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6`
+       );
+@@ -97,6 +98,7 @@ describe("ForkTest: WOETH", function () {
+       await expect(
+         woeth
+           .connect(signer)["burn(address,uint256)"](signer.address, oethUnits("1"))
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848`
+       );
+@@ -121,6 +123,7 @@ describe("ForkTest: WOETH", function () {
+     for (const signer of [rafael, nick, minter, burner]) {
+       await expect(
+         woeth.connect(signer).grantRole(MINTER_ROLE, rafael.address)
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x0000000000000000000000000000000000000000000000000000000000000000`
+       );
+@@ -143,6 +146,7 @@ describe("ForkTest: WOETH", function () {
+     for (const signer of [rafael, nick, minter, burner]) {
+       await expect(
+         woeth.connect(signer).revokeRole(BURNER_ROLE, burner.address)
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x0000000000000000000000000000000000000000000000000000000000000000`
+       );
+diff --git a/contracts/test/token/woeth.base.fork-test.js b/contracts/test/token/woeth.base.fork-test.js
+index d3990f31..5caec7ab 100644
+--- a/contracts/test/token/woeth.base.fork-test.js
++++ b/contracts/test/token/woeth.base.fork-test.js
+@@ -46,6 +46,7 @@ describe("ForkTest: Bridged wOETH (Base)", function () {
+     for (const signer of [governor, rafael, nick, burner]) {
+       await expect(
+         woeth.connect(signer).mint(signer.address, oethUnits("1"))
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6`
+       );
+@@ -97,6 +98,7 @@ describe("ForkTest: Bridged wOETH (Base)", function () {
+       await expect(
+         woeth
+           .connect(signer)["burn(address,uint256)"](signer.address, oethUnits("1"))
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x3c11d16cbaffd01df69ce1c404f6340ee057498f5f00246190ea54220576a848`
+       );
+@@ -121,6 +123,7 @@ describe("ForkTest: Bridged wOETH (Base)", function () {
+     for (const signer of [rafael, nick, minter, burner]) {
+       await expect(
+         woeth.connect(signer).grantRole(MINTER_ROLE, rafael.address)
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x0000000000000000000000000000000000000000000000000000000000000000`
+       );
+@@ -143,6 +146,7 @@ describe("ForkTest: Bridged wOETH (Base)", function () {
+     for (const signer of [rafael, nick, minter, burner]) {
+       await expect(
+         woeth.connect(signer).revokeRole(BURNER_ROLE, burner.address)
++      // TODO(oz-v5): replace with revertedWithCustomError(<contract>, "AccessControlUnauthorizedAccount").withArgs(<account>, <role>);
+       ).to.be.revertedWith(
+         `AccessControl: account ${signer.address.toLowerCase()} is missing role 0x0000000000000000000000000000000000000000000000000000000000000000`
+       );

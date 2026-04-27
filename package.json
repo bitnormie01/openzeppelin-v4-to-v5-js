@@ -2,6 +2,12 @@
   "name": "openzeppelin-v4-to-v5-js",
   "version": "0.1.0",
   "description": "jssg codemod that migrates Hardhat JS/TS test and script files from OpenZeppelin Contracts v4 to v5",
+  "author": "Satyam & 0xjaadu",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xjaadu/openzeppelin-v4-to-v5-js.git"
+  },
   "type": "module",
   "scripts": {
     "test": "npx codemod@latest jssg test -l typescript ./scripts/codemod.ts",
