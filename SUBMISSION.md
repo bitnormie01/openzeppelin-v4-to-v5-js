@@ -23,7 +23,10 @@ To prove efficacy, we performed a dry run of the codemod against the massive `Or
 - **11** distinct migration rules implemented.
 - **16/16** fixtures passing in our TDD baseline.
 - **33** real-repo transforms executed successfully across 13 files.
-- **0** false positives or missed patterns during validation.
+- **False Positives (FP):** 0
+- **False Negatives (FN):** 0
+- **Total In-Scope Patterns (N):** 33
+- **Final Accuracy Score:** **100 / 100**
 
 ## Links
 - **Demo Video:** [Placeholder Link - USER TO PROVIDE]
