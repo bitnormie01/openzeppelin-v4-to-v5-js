@@ -97,7 +97,7 @@ await token.deployed();
 To execute the codemod directly from the registry against your `test/` or `scripts/` directories:
 
 ```bash
-# Run from registry via npx (coming soon in Phase 6)
+# Run from registry via npx
 npx codemod openzeppelin-v4-to-v5-js --target ./test
 ```
 

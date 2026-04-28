@@ -28,7 +28,7 @@ To prove efficacy, we performed a dry run of the codemod against the massive `Or
 ## Links
 - **Demo Video:** [Placeholder Link - USER TO PROVIDE]
 - **GitHub Repository:** https://github.com/bitnormie01/openzeppelin-v4-to-v5-js
-- **Codemod Registry:** [Placeholder Link - PENDING PUBLISH]
+- **Codemod Registry:** https://go.codemod.com/registry/openzeppelin-v4-to-v5-js
 
 ## Team
 Built by Satyam & 0xjaadu for the Codemod Hackathon.
