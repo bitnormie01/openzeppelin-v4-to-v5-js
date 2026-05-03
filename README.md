@@ -138,6 +138,9 @@ We computed a rigorous False Positive / False Negative accuracy score on the `Or
 - **Quote Normalization:** R11 path rewrites standardizes internal module paths to double quotes `"`. 
 - **Solidity Scope:** Again, `.sol` files are out-of-scope for this project.
 
+## Case Study
+Read the full write-up on how we migrated Origin Dollar's test suite: [Migrating a DeFi Protocol's Test Suite from OpenZeppelin v4 to v5 — With a Codemod](https://openzeppelin-v4-to-v5-js.hashnode.dev/migrating-a-defi-protocol-s-test-suite-from-openzeppelin-v4-to-v5-with-a-codemod)
+
 ## Repository
 Source code is available at: [https://github.com/bitnormie01/openzeppelin-v4-to-v5-js](https://github.com/bitnormie01/openzeppelin-v4-to-v5-js)
 
